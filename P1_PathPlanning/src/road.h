@@ -12,16 +12,16 @@ using namespace std;
 class Road {
 
   protected:
-    vector<Vehicle> left_lane_;
-    vector<Vehicle> center_lane_;
-    vector<Vehicle> right_lane_;
+    std::vector<Vehicle> left_lane_;
+    std::vector<Vehicle> center_lane_;
+    std::vector<Vehicle> right_lane_;
 
   public:
     Road() {};
     ~Road() {};
 
-    void update_road(vector<Vehicle> left_lane, vector<Vehicle> center_lane, vector<Vehicle> right_lane);
-    vector<Vehicle> get_lane_status(LANE lane);
+    void update_road(std::vector<Vehicle> l, std::vector<Vehicle> c, std::vector<Vehicle> r);
+    std::vector<Vehicle> get_lane_status(LANE lane);
 
     bool safe_lane(Vehicle& car, LANE lane);
     bool free_lane(Vehicle& car, LANE lane);

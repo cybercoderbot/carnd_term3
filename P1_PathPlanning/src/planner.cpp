@@ -64,9 +64,11 @@ double get_lane_d(double D){
   return d;
 }
 
-Planner::Planner(){
-  state_ = STATE::START;
+Planner::Planner()
+  : state_ (STATE::START)
+{
 }
+
 
 /* JMT*/
 std::vector<double> Planner::JMT(std::vector<double> start, std::vector <double> end, double T) {

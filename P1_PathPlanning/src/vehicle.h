@@ -26,8 +26,8 @@ class Vehicle {
     double d_;
     double yaw_;
 
-    vector<double> previous_s_;
-    vector<double> previous_d_;
+    std::vector<double> previous_s_;
+    std::vector<double> previous_d_;
 
   public:
 
@@ -45,10 +45,10 @@ class Vehicle {
     LANE lane();
 
     void update_vehicle_values(double x, double y, double v, double s, double d, double yaw);
-    void set_previous_s(vector<double> pre_s);
-    void set_previous_d(vector<double> pre_d);
-    vector<double> prev_s();
-    vector<double> prev_d();
+    void set_previous_s(std::vector<double> pre_s);
+    void set_previous_d(std::vector<double> pre_d);
+    std::vector<double> prev_s();
+    std::vector<double> prev_d();
 
 };
 

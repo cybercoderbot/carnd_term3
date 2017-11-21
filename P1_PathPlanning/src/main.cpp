@@ -92,8 +92,8 @@ int main() {
 
           nlohmann::json msgJson;
 
-          vector<double> next_x_vals;
-          vector<double> next_y_vals;
+          std::vector<double> next_x_vals;
+          std::vector<double> next_y_vals;
 
           /*****************
           ******CONTEXT*****
@@ -104,9 +104,9 @@ int main() {
 
           car.update_vehicle_values(car_x, car_y, car_speed, car_s, car_d, car_yaw);
 
-          vector<Vehicle> left_lane;
-          vector<Vehicle> center_lane;
-          vector<Vehicle> right_lane;
+          std::vector<Vehicle> left_lane;
+          std::vector<Vehicle> center_lane;
+          std::vector<Vehicle> right_lane;
 
           /* Get SF info to create the Road -> Sensor Fusion Elements (Just cars) */
           for (int i = 0; i < sensor_fusion.size(); ++i) {
@@ -149,7 +149,7 @@ int main() {
           /*****************
           ******DRIVE*******
           *****************/
-          vector<vector<double>> trajectory = {next_x_vals, next_y_vals};
+          std::vector<std::vector<double>> trajectory = {next_x_vals, next_y_vals};
           planner.create_trajectory(map, road, car, trajectory);
 
           // Update next point

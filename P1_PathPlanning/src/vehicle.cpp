@@ -50,18 +50,18 @@ void Vehicle::update_vehicle_values(double x, double y, double v, double s, doub
   yaw_ = yaw;
 }
 
-void Vehicle::set_previous_s(vector<double> pre_s){
+void Vehicle::set_previous_s(std::vector<double> pre_s){
   previous_s_ = pre_s;
 }
 
-void Vehicle::set_previous_d(vector<double> pre_d){
+void Vehicle::set_previous_d(std::vector<double> pre_d){
   previous_d_ = pre_d;
 }
 
-vector<double> Vehicle::prev_s(){
+std::vector<double> Vehicle::prev_s(){
   return previous_s_;
 }
 
-vector<double> Vehicle::prev_d(){
+std::vector<double> Vehicle::prev_d(){
   return previous_d_;
 }

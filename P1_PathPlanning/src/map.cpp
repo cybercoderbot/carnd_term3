@@ -1,6 +1,6 @@
 #include "map.h"
 
-Map::Map(string map_file_) {
+Map::Map(std::string map_file_) {
 
   std::vector<double> map_waypoints_x;
   std::vector<double> map_waypoints_y;
@@ -38,12 +38,12 @@ Map::Map(string map_file_) {
 
 }
 
-vector<double> Map::getXY(double s, double d){
+std::vector<double> Map::getXY(double s, double d){
   double wp_x, wp_y, wp_dx, wp_dy, next_x, next_y;
 
   // spline interpolation
-  wp_x = wp_spline_x_(s);
-  wp_y = wp_spline_y_(s);
+  wp_x  = wp_spline_x_(s);
+  wp_y  = wp_spline_y_(s);
   wp_dx = wp_spline_dx_(s);
   wp_dy = wp_spline_dy_(s);
 
