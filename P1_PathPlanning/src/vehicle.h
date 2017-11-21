@@ -35,20 +35,16 @@ class Vehicle {
     Vehicle(int id, double x, double y, double v, double s, double d);
     ~Vehicle(){};
 
-    int get_id();
-    // double get_x();
-    // double get_y();
-    double get_v();
-    double get_s();
-    // double get_d();
-    // double get_yaw();
+    // int getId();
+    double getV();
+    double getS();
     LANE lane();
 
-    void update_vehicle_values(double x, double y, double v, double s, double d, double yaw);
-    void set_previous_s(std::vector<double> pre_s);
-    void set_previous_d(std::vector<double> pre_d);
-    std::vector<double> prev_s();
-    std::vector<double> prev_d();
+    void update(double x, double y, double v, double s, double d, double yaw);
+    void setPrevS(std::vector<double> pre_s);
+    void setPrevD(std::vector<double> pre_d);
+    std::vector<double> prevS();
+    std::vector<double> prevD();
 
 };
 

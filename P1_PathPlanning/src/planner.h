@@ -27,17 +27,17 @@ public:
   ~Planner(){};
 
   std::vector<double> JMT(std::vector<double> start, std::vector <double> end, double T);
-  void estimate_new_points(Map& map, std::vector<std::vector<double>>& trajectory);
-  void create_trajectory(Map& map, Road& road, Vehicle& car, std::vector<std::vector<double>>& trajectory);
+  void updateTrajectory(Map& map, std::vector<std::vector<double>>& trajectory);
+  void createTrajectory(Map& map, Road& road, Vehicle& car, std::vector<std::vector<double>>& trajectory);
 
-  void set_state(LANE current_lane, LANE target_lane);
+  void setState(LANE current_lane, LANE target_lane);
 
   /*  Actions */
-  void apply_action(Vehicle& car, LANE current_lane, LANE target_lane);
-  void start_car(Vehicle& car);
-  void stay_in_lane(Vehicle& car);
-  void reduce_speed(Vehicle& car);
-  void change_lane(Vehicle& car, LANE target_lane);
+  void applyAction(Vehicle& car, LANE current_lane, LANE target_lane);
+  void startCar(Vehicle& car);
+  void stayInLane(Vehicle& car);
+  void reduceSpeed(Vehicle& car);
+  void changeLane(Vehicle& car, LANE target_lane);
 
 };
 

@@ -20,12 +20,12 @@ class Road {
     Road() {};
     ~Road() {};
 
-    void update_road(std::vector<Vehicle> l, std::vector<Vehicle> c, std::vector<Vehicle> r);
-    std::vector<Vehicle> get_lane_status(LANE lane);
+    void update(std::vector<Vehicle> l, std::vector<Vehicle> c, std::vector<Vehicle> r);
+    std::vector<Vehicle> getLaneStatus(LANE lane);
 
-    bool safe_lane(Vehicle& car, LANE lane);
-    bool free_lane(Vehicle& car, LANE lane);
-    LANE lane_change_available(Vehicle& car);
+    bool isSafeLane(Vehicle& car, LANE lane);
+    bool isFreeLane(Vehicle& car, LANE lane);
+    LANE laneChangeAvailable(Vehicle& car);
 };
 
 #endif // ROAD_H

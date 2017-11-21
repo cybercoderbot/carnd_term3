@@ -102,7 +102,7 @@ int main() {
           std::cout << "-------------CAR--------------" << std::endl;
           std::cout << "Car S: " << car_s << " " << "Car speed: " << car_speed << std::endl;
 
-          car.update_vehicle_values(car_x, car_y, car_speed, car_s, car_d, car_yaw);
+          car.update(car_x, car_y, car_speed, car_s, car_d, car_yaw);
 
           std::vector<Vehicle> left_lane;
           std::vector<Vehicle> center_lane;
@@ -133,7 +133,7 @@ int main() {
           }
 
           // Update road
-          road.update_road(left_lane, center_lane, right_lane);
+          road.update(left_lane, center_lane, right_lane);
 
           /*****************
           ******CORE*****
@@ -150,7 +150,7 @@ int main() {
           ******DRIVE*******
           *****************/
           std::vector<std::vector<double>> trajectory = {next_x_vals, next_y_vals};
-          planner.create_trajectory(map, road, car, trajectory);
+          planner.createTrajectory(map, road, car, trajectory);
 
           // Update next point
           msgJson["next_x"] = trajectory[0];

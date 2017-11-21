@@ -18,11 +18,11 @@ Vehicle::Vehicle(int id, double x, double y, double v, double s, double d)
 }
 
 /* GETTERS*/
-double Vehicle::get_v(){
+double Vehicle::getV(){
   return v_;
 }
 
-double Vehicle::get_s(){
+double Vehicle::getS(){
   return s_;
 }
 
@@ -40,7 +40,7 @@ LANE Vehicle::lane(){
   return lane;
 }
 
-void Vehicle::update_vehicle_values(double x, double y, double v, double s, double d, double yaw)
+void Vehicle::update(double x, double y, double v, double s, double d, double yaw)
 {
   x_ = x;
   y_ = y;
@@ -50,18 +50,18 @@ void Vehicle::update_vehicle_values(double x, double y, double v, double s, doub
   yaw_ = yaw;
 }
 
-void Vehicle::set_previous_s(std::vector<double> pre_s){
+void Vehicle::setPrevS(std::vector<double> pre_s){
   previous_s_ = pre_s;
 }
 
-void Vehicle::set_previous_d(std::vector<double> pre_d){
+void Vehicle::setPrevD(std::vector<double> pre_d){
   previous_d_ = pre_d;
 }
 
-std::vector<double> Vehicle::prev_s(){
+std::vector<double> Vehicle::prevS(){
   return previous_s_;
 }
 
-std::vector<double> Vehicle::prev_d(){
+std::vector<double> Vehicle::prevD(){
   return previous_d_;
 }
