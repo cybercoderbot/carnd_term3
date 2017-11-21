@@ -2,16 +2,16 @@
 
 Map::Map(std::string map_file_) {
 
-  std::vector<double> map_waypoints_x;
-  std::vector<double> map_waypoints_y;
-  std::vector<double> map_waypoints_s;
-  std::vector<double> map_waypoints_dx;
-  std::vector<double> map_waypoints_dy;
+  std::vector<double> map_wp_x;
+  std::vector<double> map_wp_y;
+  std::vector<double> map_wp_s;
+  std::vector<double> map_wp_dx;
+  std::vector<double> map_wp_dy;
 
   std::ifstream in_map_(map_file_.c_str(), std::ifstream::in);
 
   std::string line;
-  while (getline(in_map_, line)) {
+  while (std::getline(in_map_, line)) {
     std::istringstream iss(line);
     double x;
     double y;
@@ -23,18 +23,18 @@ Map::Map(std::string map_file_) {
     iss >> s;
     iss >> d_x;
     iss >> d_y;
-    map_waypoints_x.push_back(x);
-    map_waypoints_y.push_back(y);
-    map_waypoints_s.push_back(s);
-    map_waypoints_dx.push_back(d_x);
-    map_waypoints_dy.push_back(d_y);
+    map_wp_x.push_back(x);
+    map_wp_y.push_back(y);
+    map_wp_s.push_back(s);
+    map_wp_dx.push_back(d_x);
+    map_wp_dy.push_back(d_y);
   }
 
   // set points
-  wp_spline_x_.set_points(map_waypoints_s, map_waypoints_x);
-  wp_spline_y_.set_points(map_waypoints_s, map_waypoints_y);
-  wp_spline_dx_.set_points(map_waypoints_s, map_waypoints_dx);
-  wp_spline_dy_.set_points(map_waypoints_s, map_waypoints_dy);
+  wp_spline_x_.set_points(map_wp_s, map_wp_x);
+  wp_spline_y_.set_points(map_wp_s, map_wp_y);
+  wp_spline_dx_.set_points(map_wp_s, map_wp_dx);
+  wp_spline_dy_.set_points(map_wp_s, map_wp_dy);
 
 }
 

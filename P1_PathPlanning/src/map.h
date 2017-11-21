@@ -10,25 +10,24 @@
 
 #include "spline.h"
 
-using namespace std;
-using namespace tk; // spline
-
+  
 class Map {
 
-  protected:
+private:
     // define wp spline trajectory
-    spline wp_spline_x_;
-    spline wp_spline_y_;
-    spline wp_spline_dx_;
-    spline wp_spline_dy_;
+    tk::spline wp_spline_x_;
+    tk::spline wp_spline_y_;
+    tk::spline wp_spline_dx_;
+    tk::spline wp_spline_dy_;
 
-  public:
+public:
     Map(){};
-    Map(string map_file_);
+    Map(std::string map_file_);
     ~Map() {};
 
     std::vector<double> getXY(double s, double d);
 
 };
 
-#endif // ROAD_H
+
+#endif // MAP_H

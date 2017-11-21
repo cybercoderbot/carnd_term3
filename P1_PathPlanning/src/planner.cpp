@@ -122,10 +122,6 @@ void Planner::updateTrajectory(Map& map, std::vector<std::vector<double>>& traje
 
     t = AT*i;
 
-    // /* JMT */
-    // cout << "----------JMT----------" << endl;
-    // cout << "t= " << t << endl;
-
     next_s = 0.0;
     next_d = 0.0;
     for (int a = 0; a < poly_s.size(); a++) {
@@ -146,8 +142,8 @@ void Planner::updateTrajectory(Map& map, std::vector<std::vector<double>>& traje
 void Planner::createTrajectory(Map& map, Road& road, Vehicle& car, 
                                 std::vector<std::vector<double>>& trajectory) {
 
-  cout << "STATE: " << strState(state_) << endl;
-  cout << "LANE: " << strLane(car.lane()) << endl;
+  std::cout << "STATE: " << strState(state_) << std::endl;
+  std::cout << "LANE: " << strLane(car.lane()) << std::endl;
 
   int current_points = trajectory[0].size();
   new_points_ = false;
@@ -222,7 +218,7 @@ void Planner::applyAction(Vehicle& car, LANE current_lane, LANE target_lane){
 
 /* ACTIONS */
 void Planner::startCar(Vehicle& car){
-  cout << "ACTION: start_car" << endl;
+  std::cout << "ACTION: start_car" << std::endl;
   n_ = 4*POINTS; // 4 cycles to start
   double target_v = SPEED_LIMIT*0.5;
   double target_s = car.getS() + n_ * AT * target_v;;
@@ -237,7 +233,7 @@ void Planner::startCar(Vehicle& car){
 }
 
 void Planner::stayInLane(Vehicle& car){
-  cout << "ACTION: stay_in_lane" << endl;
+  std::cout << "ACTION: stay_in_lane" << std::endl;
   n_ = CYCLES*POINTS;
   double target_v = min(car.prevS()[1]*1.3, SPEED_LIMIT);
   double target_s = car.prevS()[0] + n_ * AT * target_v;
@@ -254,7 +250,7 @@ void Planner::stayInLane(Vehicle& car){
 }
 
 void Planner::reduceSpeed(Vehicle& car){
-  cout << "ACTION: reduce_speed" << endl;
+  std::cout << "ACTION: reduce_speed" << std::endl;
   n_ = CYCLES*POINTS;
   new_points_ = true;
   double target_v = max(car.prevS()[1]*0.8, SPEED_LIMIT/2);
@@ -272,7 +268,7 @@ void Planner::reduceSpeed(Vehicle& car){
 }
 
 void Planner::changeLane(Vehicle& car, LANE target_lane){
-  cout << "ACTION: reduce_speed" << endl;
+  std::cout << "ACTION: reduce_speed" << std::endl;
   n_ = CYCLES*POINTS;
   new_points_ = true;
   double target_v = car.prevS()[1];
