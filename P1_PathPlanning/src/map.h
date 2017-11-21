@@ -14,15 +14,11 @@
 class Map {
 
 private:
-    // define wp spline trajectory
-    tk::spline wp_spline_x_;
-    tk::spline wp_spline_y_;
-    tk::spline wp_spline_dx_;
-    tk::spline wp_spline_dy_;
+    std::string map_file_;
 
 public:
     Map(){};
-    Map(std::string map_file_);
+    Map(std::string mfile);
     ~Map() {};
 
     std::vector<double> getXY(double s, double d);

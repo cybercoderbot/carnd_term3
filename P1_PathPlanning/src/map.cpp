@@ -1,6 +1,11 @@
 #include "map.h"
 
-Map::Map(std::string map_file_) {
+Map::Map(std::string mfile)
+  : map_file_ (mfile)
+{ 
+}
+
+std::vector<double> Map::getXY(double s, double d){
 
   std::vector<double> map_wp_x;
   std::vector<double> map_wp_y;
@@ -30,16 +35,21 @@ Map::Map(std::string map_file_) {
     map_wp_dy.push_back(d_y);
   }
 
-  // set points
+
+  // define wp spline trajectory
+  tk::spline wp_spline_x_;
+  tk::spline wp_spline_y_;
+  tk::spline wp_spline_dx_;
+  tk::spline wp_spline_dy_;
+
   wp_spline_x_.set_points(map_wp_s, map_wp_x);
   wp_spline_y_.set_points(map_wp_s, map_wp_y);
   wp_spline_dx_.set_points(map_wp_s, map_wp_dx);
   wp_spline_dy_.set_points(map_wp_s, map_wp_dy);
 
-}
-
-std::vector<double> Map::getXY(double s, double d){
-  double wp_x, wp_y, wp_dx, wp_dy, next_x, next_y;
+  double wp_x, wp_y; 
+  double wp_dx, wp_dy;
+  double next_x, next_y;
 
   // spline interpolation
   wp_x  = wp_spline_x_(s);
