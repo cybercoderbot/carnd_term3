@@ -25,5 +25,4 @@ public:
 
 };
 
-
 #endif // MAP_H

@@ -35,7 +35,6 @@ std::vector<double> Map::getXY(double s, double d){
     map_wp_dy.push_back(d_y);
   }
 
-
   // define wp spline trajectory
   tk::spline wp_spline_x_;
   tk::spline wp_spline_y_;
