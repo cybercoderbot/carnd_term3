@@ -5,11 +5,11 @@ In this project, a Fully Convolutional Network (FCN) is implemented to segment t
 
 ### Results
 
-Below is the animation from the output of the fully convolutional network, with the segmentation class overlaid upon the original image in green.
+Below is the animation from the output of the fully convolutional network, with the segmentation class overlaid upon the original image in green. Performance is good overall, but not equally well for all images.
 
 ![aim](./result/animation.gif)
 
-Performance is very good, but not perfect with only spots of road identified in a handful of images.
+
 
 
 ### Frameworks and Packages
