@@ -7,7 +7,8 @@ import project_tests as tests
 
 
 # Check TensorFlow Version
-assert LooseVersion(tf.__version__) >= LooseVersion('1.0'), 'Please use TensorFlow version 1.0 or newer.  You are using {}'.format(tf.__version__)
+assert LooseVersion(tf.__version__) >= LooseVersion('1.0'), 
+      'Please use TensorFlow version 1.0 or newer.  You are using {}'.format(tf.__version__)
 print('TensorFlow Version: {}'.format(tf.__version__))
 
 # Check for a GPU
@@ -34,10 +35,10 @@ def load_vgg(sess, vgg_path):
     
     tf.saved_model.loader.load(sess, [vgg_tag], vgg_path)
     image_input = tf.get_default_graph().get_tensor_by_name(vgg_input_tensor_name)
-    keep_prob  = tf.get_default_graph().get_tensor_by_name(vgg_keep_prob_tensor_name)
-    layer3_out = tf.get_default_graph().get_tensor_by_name(vgg_layer3_out_tensor_name)
-    layer4_out = tf.get_default_graph().get_tensor_by_name(vgg_layer4_out_tensor_name)
-    layer7_out = tf.get_default_graph().get_tensor_by_name(vgg_layer7_out_tensor_name)
+    keep_prob   = tf.get_default_graph().get_tensor_by_name(vgg_keep_prob_tensor_name)
+    layer3_out  = tf.get_default_graph().get_tensor_by_name(vgg_layer3_out_tensor_name)
+    layer4_out  = tf.get_default_graph().get_tensor_by_name(vgg_layer4_out_tensor_name)
+    layer7_out  = tf.get_default_graph().get_tensor_by_name(vgg_layer7_out_tensor_name)
     
     return image_input, keep_prob, layer3_out, layer4_out, layer7_out
 
