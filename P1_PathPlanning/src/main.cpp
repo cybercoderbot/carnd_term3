@@ -38,7 +38,7 @@ int main() {
   //map file
   std::string map_file_ = "../data/highway_map.csv";
 
-  int event_counter = 0;
+  int counter = 0;
 
   // Map & Road & Vehicle & Planner instances
   Map map (map_file_);
@@ -46,12 +46,8 @@ int main() {
   Vehicle car;
   Planner planner;
 
-  h.onMessage([
-    &map,
-    &road,
-    &car,
-    &planner,
-    &event_counter](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
+  h.onMessage([&map, &road, &car, &planner, &counter]
+    (uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
@@ -68,9 +64,9 @@ int main() {
 
         if (event == "telemetry") {
           // j[1] is the data JSON object
-          event_counter++;
-          std::cout << "-------------------------------" << std::endl;
-          std::cout << "EVENT: " << event_counter << std::endl;
+          counter++;
+          std::cout << "--------------- [Time " 
+                    << counter << "] ----------------" << std::endl;
 
           // Main car's localization Data
           double car_x = j[1]["x"];
@@ -95,12 +91,7 @@ int main() {
           std::vector<double> next_x_vals;
           std::vector<double> next_y_vals;
 
-          /*****************
-          ******CONTEXT*****
-          *****************/
-
-          std::cout << "-------------CAR--------------" << std::endl;
-          std::cout << "Car S: " << car_s << " " << "Car speed: " << car_speed << std::endl;
+          std::cout << "Odometer: " << car_s << "(m), Speed: " << car_speed << "(mph)" << std::endl;
 
           car.update(car_x, car_y, car_speed, car_s, car_d, car_yaw);
 
@@ -135,10 +126,6 @@ int main() {
           // Update road
           road.update(left_lane, center_lane, right_lane);
 
-          /*****************
-          ******CORE*****
-          *****************/
-
           // Previous path
           int n = previous_path_x.size();
           for(int i = 0; i < n; i++) {
@@ -146,9 +133,6 @@ int main() {
             next_y_vals.push_back(previous_path_y[i]);
           }
 
-          /*****************
-          ******DRIVE*******
-          *****************/
           std::vector<std::vector<double>> trajectory = {next_x_vals, next_y_vals};
           planner.createTrajectory(map, road, car, trajectory);
 

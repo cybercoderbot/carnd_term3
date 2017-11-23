@@ -1,25 +1,43 @@
 #include "planner.h"
 
-std::string strLane(LANE lane){
-  if (lane == LANE::LEFT){
-    return "LEFT";
-  } else if(lane == LANE::CENTER){
-    return "CENTER";
-  } else{
-    return "RIGHT";
-  }
-}
+// void printState(STATE s){
+//   std::string str;
+//   if (s == STATE::KEEP_LANE){
+//     str = "Keep lane";
+//   } else if(s == STATE::CHANGE_LEFT){
+//     str = "Change to Left";
+//   } else if(s == STATE::START){
+//     str = "Start";
+//   } else{
+//     str = "Change to Right";
+//   }
 
-std::string strState(STATE s){
+//   std::cout << ", State: " << str << std::endl;
+// }
+
+void printStateLane(STATE s, LANE lane){
+
+  std::string str1;
   if (s == STATE::KEEP_LANE){
-    return "KEEP_LANE";
+    str1 = "Keep lane";
   } else if(s == STATE::CHANGE_LEFT){
-    return "CHANGE_LEFT";
+    str1 = "Change to Left";
   } else if(s == STATE::START){
-    return "START";
+    str1 = "Start";
   } else{
-    return "CHANGE_RIGHT";
+    str1 = "Change to Right";
   }
+
+  std::string str2;
+  if (lane == LANE::LEFT){
+    str2 = "Left";
+  } else if(lane == LANE::CENTER){
+    str2 = "Center";
+  } else{
+    str2 = "Right";
+  }
+
+  std::cout << "State: " << str1 << ", Lane: " << str2 << std::endl;
 }
 
 LANE getLane(double d){
@@ -142,8 +160,12 @@ void Planner::updateTrajectory(Map& map, std::vector<std::vector<double>>& traje
 void Planner::createTrajectory(Map& map, Road& road, Vehicle& car, 
                                 std::vector<std::vector<double>>& trajectory) {
 
-  std::cout << "STATE: " << strState(state_) << std::endl;
-  std::cout << "LANE: " << strLane(car.lane()) << std::endl;
+  // std::cout << "STATE: " << strState(state_) << std::endl;
+  // std::cout << "LANE: " << strLane(car.lane()) << std::endl;
+  // printState(state_);
+  // printLane(car.lane());
+
+  printStateLane(state_, car.lane());
 
   int current_points = trajectory[0].size();
   new_points_ = false;
@@ -218,7 +240,7 @@ void Planner::applyAction(Vehicle& car, LANE current_lane, LANE target_lane){
 
 /* ACTIONS */
 void Planner::startCar(Vehicle& car){
-  std::cout << "ACTION: start_car" << std::endl;
+  std::cout << "ACTION: Start Car" << std::endl;
   n_ = 4*POINTS; // 4 cycles to start
   double target_v = SPEED_LIMIT*0.5;
   double target_s = car.getS() + n_ * AT * target_v;;
@@ -233,7 +255,7 @@ void Planner::startCar(Vehicle& car){
 }
 
 void Planner::stayInLane(Vehicle& car){
-  std::cout << "ACTION: stay_in_lane" << std::endl;
+  std::cout << "ACTION: Stay In Lane" << std::endl;
   n_ = CYCLES*POINTS;
   double target_v = min(car.prevS()[1]*1.3, SPEED_LIMIT);
   double target_s = car.prevS()[0] + n_ * AT * target_v;
@@ -250,7 +272,7 @@ void Planner::stayInLane(Vehicle& car){
 }
 
 void Planner::reduceSpeed(Vehicle& car){
-  std::cout << "ACTION: reduce_speed" << std::endl;
+  std::cout << "ACTION: Reduce Speed" << std::endl;
   n_ = CYCLES*POINTS;
   new_points_ = true;
   double target_v = max(car.prevS()[1]*0.8, SPEED_LIMIT/2);
@@ -268,7 +290,7 @@ void Planner::reduceSpeed(Vehicle& car){
 }
 
 void Planner::changeLane(Vehicle& car, LANE target_lane){
-  std::cout << "ACTION: reduce_speed" << std::endl;
+  std::cout << "ACTION: Reduce Speed" << std::endl;
   n_ = CYCLES*POINTS;
   new_points_ = true;
   double target_v = car.prevS()[1];

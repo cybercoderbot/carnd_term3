@@ -2,12 +2,54 @@
    
 
 ### Goals
-In this project your goal is to safely navigate around a virtual highway with other traffic that is driving +-10 MPH of the 50 MPH speed limit. You will be provided the car's localization and sensor fusion data, there is also a sparse map list of waypoints around the highway. The car should try to go as close as possible to the 50 MPH speed limit, which means passing slower traffic when possible, note that other cars will try to change lanes too. The car should avoid hitting other cars at all cost as well as driving inside of the marked road lanes at all times, unless going from one lane to another. The car should be able to make one complete loop around the 6946m highway. Since the car is trying to go 50 MPH, it should take a little over 5 minutes to complete 1 loop. Also the car should not experience total acceleration over 10 m/s^2 and jerk that is greater than 10 m/s^3.
+
+The goal of this project is to build a path planner that creates smooth, safe trajectories for the car to follow. The highway track has other vehicles, all going different speeds, but approximately obeying the 50 mph ( +/-10 mph) speed limit.
+
+The car transmits its location, along with its sensor fusion data, which estimates the location of all the vehicles on the same side of the road.
+The car's localization, sensor fusion data and a sparse map list of waypoints around the highway are provided. The car should try to go as close as possible to the 50 MPH speed limit, which means passing slower traffic when possible, note that other cars will try to change lanes too. The car should avoid hitting other cars at all cost as well as driving inside of the marked road lanes at all times, unless going from one lane to another. The car should be able to make one complete loop around the 6946m highway. Also the car should not experience total acceleration over 10 m/s^2 and jerk that is greater than 10 m/s^3.
 
 #### The map of the highway is in data/highway_map.txt
 Each waypoint in the list contains  [x,y,s,dx,dy] values. x and y are the waypoint's map coordinate position, the s value is the distance along the road to get to that waypoint in meters, the dx and dy values define the unit normal vector pointing outward of the highway loop.
 
 The highway's waypoints loop around so the frenet s value, distance along the road, goes from 0 to 6945.554.
+
+
+The project can be divided into following 3 parts:
+
+
+## Smoothing Waypoints
+
+The track is approximately 7 km and only has 181 waypoints.  The simulator appear to use linear
+interpolation between the waypoints to compute map coordinates from Frenet coordinates.  The track waypoints given in the highway_map.csv file are spaced roughly 30 meters apart, so the first step in the process is to interpolate a set of nearby map waypoints (in the current implementation, five waypoints ahead of and five waypoints behind the ego vehicle are used) and produce a set of much more tightly spaced (0.5 meters apart) waypoints which help to produce more accurate results from the getXY and getFrenet methods and also account for the discontinuity in s values at the end/beginning of the track.
+
+
+## The Road Map
+
+The spline.h helps us get the Cartesian coordinates for our estimated Frenet points.  This makes implementation the path cycle rather easy by simply taking `fmod` of the total track length in s coordinates in Frenet coordinates. 
+
+
+## Vehicle Behavior Planning
+
+The telemetry data is used in computing what the next logical move
+for the car to make is. A four state Finite State Machine is used to model the car behivior:
+
+ * Start
+ * Keep going straight
+ * Lane change left
+ * Lane change right
+
+In the case of the lane changes, clearly the lane has to be appropriate (can't change 
+left out of the leftmost lane) and it has to be acceptable with respect to the 
+other cars in the lane.  To both as a cost, if the lane change is not appropriate
+the cost is simply set high. In case there is another car on his trajectory it will try to change lanes. If the car's initial position is in the left lane, the car only will change lane to the right. The opposite applies when the car needs to change and it is driving in the right lane.
+
+If the car finds itself in the center of the highway, it will try first, to change to the left lane. If that's not possible and the right lane is safe and free to move in, it will try to change to the right lane.
+
+When driving straight, the car tries to maximize speed with while under the speed limit and not running into the front car.  The case could arise of not being able to change 
+lanes, but the car in front of us is going slow, so it is necessary to monitor the 
+car in front of us and adjust our speed.
+
+The planner also implements a Jerk Minimizing Trajectory generator in order to create and drive smooth and safe paths when the car needs to change lanes or just to stay in the same lane without spikes on the acceleration nor jerk values. The paths that are fed to the simulator are all segments computed to minimize jerk.  
 
 ## Basic Build Instructions
 
